@@ -46,6 +46,7 @@ void readPointersOfLines(File * allFile)
         if ( *(allFile->str + currentFilePos) == '\0' ) {
             *(allFile->pointers + readedLines) = allFile->str + currentFilePos + 1;
             readedLines += 1;
+
             if (readedLines == allFile->numOfLines) {
                 currentFilePos = allFile->numOfElements;
             }

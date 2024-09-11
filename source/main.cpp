@@ -10,8 +10,10 @@ int main()
 
     bubbleSort(text.pointers, text.numOfLines);
 
+    FILE * output = fopen("files/Sorted_Onegin.txt", "w");
+
     for (int numOfReadedLines = 0; numOfReadedLines < text.numOfLines; numOfReadedLines++) {
-        printf("%s\n", text.pointers[numOfReadedLines]);
+        fputs(text.pointers[numOfReadedLines], output);
     }
 
     return 0;
