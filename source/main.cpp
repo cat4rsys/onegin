@@ -4,7 +4,7 @@
 
 int main()
 {
-    File text = readFile(fopen("files\\Eugene_Onegin.txt", "r"));
+    File text = readFile(fopen("files/Eugene_Onegin.txt", "r"));
     divisionLines(&text);
     readPointersOfLines(&text);
 
