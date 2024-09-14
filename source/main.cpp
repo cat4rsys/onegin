@@ -7,18 +7,12 @@ int main()
     File text = readFile(fopen("files/Eugene_Onegin.txt", "rb"));
 
     prepareFile(&text);
-    printf("%s\n", *text.pointers);
-    printf("%s\n", *((void **) text.pointers));
 
-    //bubbleSort(text.pointers, text.numOfLines);
-    universalBubbleSort( (void **) text.pointers, (size_t) text.numOfLines, sizeof(char *), compareLines);
+    universalBubbleSort( (void **) text.pointers, (size_t) text.numOfLines, sizeof(char *), compareLinesFromAToZ);
+    printText( text.pointers, (size_t) text.numOfLines, fopen("files/Sorted_Onegin.txt", "w") );
 
-    FILE * output = fopen("files/Sorted_Onegin.txt", "w");
-
-    for (int numOfReadedLines = 0; numOfReadedLines < text.numOfLines; numOfReadedLines++) {
-        fputs(text.pointers[numOfReadedLines], output);
-        fputc('\n', output);
-    }
+    universalBubbleSort( (void **) text.pointers, (size_t) text.numOfLines, sizeof(char *), compareLinesFromZToA);
+    printText( text.pointers, (size_t) text.numOfLines, fopen("files/Reverse_Sorted_Onegin.txt", "w") );
 
     return 0;
 }

@@ -12,7 +12,7 @@ int readSizeOfFile( FILE * file )
     return sizeOfFile;
 }
 
-int compareLines( const void * firstPtr, const void * secondPtr )
+int compareLinesFromAToZ( const void * firstPtr, const void * secondPtr )
 {
     const char * firstLine = *( (const char **) firstPtr );
     const char * secondLine = *( (const char **) secondPtr );
@@ -23,26 +23,24 @@ int compareLines( const void * firstPtr, const void * secondPtr )
     return firstLine[currentSymbol] - secondLine[currentSymbol];
 }
 
+int compareLinesFromZToA( const void * firstPtr, const void * secondPtr )
+{
+    const char * firstLine = *( (const char **) firstPtr );
+    const char * secondLine = *( (const char **) secondPtr );
+
+    int currentSymbol = 0;
+    for( ; firstLine[currentSymbol] == secondLine[currentSymbol] && firstLine[currentSymbol] != '\0'; currentSymbol++ );
+
+    return secondLine[currentSymbol] - firstLine[currentSymbol];
+}
+
 void changePointers( int numOfFirstElem, int numOfSecondElem, size_t sizeOfElem, void ** pointer )
 {
     void * temp = *( pointer + numOfFirstElem );
     *(pointer + numOfFirstElem) = *(pointer + numOfSecondElem);
     *(pointer + numOfSecondElem) = temp;
 }
-/*
-void bubbleSort( char ** pointer, int numOfLines )
-{
-    for (int numOfSortedLines = 0; numOfSortedLines < numOfLines; numOfSortedLines++) {
-        int numOfUsefulLines = numOfLines - numOfSortedLines - 1;
 
-        for (int currentLine = 0; currentLine < numOfUsefulLines; currentLine++) {
-            if ( compareLines(pointer[currentLine], pointer[currentLine + 1]) > 0) {
-                changeLines(currentLine, currentLine + 1, pointer);
-            }
-        }
-    }
-}
-*/
 void universalBubbleSort( void ** data, size_t sizeOfData, size_t sizeOfElem, compare_funcptr comparing )
 {
     for (int numOfSortedElem = 0; numOfSortedElem < sizeOfData; numOfSortedElem++) {
@@ -54,4 +52,16 @@ void universalBubbleSort( void ** data, size_t sizeOfData, size_t sizeOfElem, co
             }
         }
     }
+}
+
+void printText( char ** data, size_t numOfLines, FILE * outputFile )
+{
+    CASSERT(outputFile);
+
+    for (int numOfReadedLines = 0; numOfReadedLines < numOfLines; numOfReadedLines++) {
+        fputs(data[numOfReadedLines], outputFile);
+        fputc('\n', outputFile);
+    }
+
+    fclose(outputFile);
 }
