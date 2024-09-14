@@ -18,7 +18,7 @@ build/sort.obj:
 build/main.obj:
 	@$(CC) $(CFLAGS) -I $(INCLUDES) -c source/main.cpp -o $@
 
-build/read.obj:
+build/input.obj:
 	@$(CC) $(CFLAGS) -I $(INCLUDES) -c source/input.cpp -o $@
 
 build/utilities.obj:
