@@ -3,25 +3,30 @@
 #include <stdlib.h>
 #include <cassert>
 #include <input.h>
+#include <utilities.h>
 
 File readFile( FILE * inputFile )
 {
-    assert(inputFile != NULL);
+    CASSERT(inputFile != NULL);
 
     File allFile = {};
 
-    fseek(inputFile, 0L, SEEK_END);
-    int sizeOfFile = ftell(inputFile) + 1;
+    allFile.numOfElements = readSizeOfFile(inputFile);
 
-    allFile.str = (char * )calloc(sizeOfFile, sizeof(char));
-    assert(allFile.str != 0);
+    allFile.str = (char * )calloc( allFile.numOfElements, sizeof(char) );
+    CASSERT(allFile.str != NULL);
 
-    fseek(inputFile, 0L, SEEK_SET);
-    allFile.numOfElements = fread(allFile.str, sizeof(char), sizeOfFile, inputFile);
+    fread(allFile.str, sizeof(char), allFile.numOfElements, inputFile);
 
     fclose(inputFile);
 
     return allFile;
+}
+
+void prepareFile( File * inputFile )
+{
+    divisionLines(inputFile);
+    readPointersOfLines(inputFile);
 }
 
 void divisionLines(File * allFile)
@@ -29,11 +34,13 @@ void divisionLines(File * allFile)
     allFile->numOfLines = 1;
 
     for (int currentFilePos = 0; currentFilePos < allFile->numOfElements; currentFilePos++) {
-        if ( *(allFile->str + currentFilePos) == '\n' ) {
+        if ( *(allFile->str + currentFilePos) == '\r' ) {
             *(allFile->str + currentFilePos) = '\0';
             allFile->numOfLines++;
         }
     }
+
+    *( (allFile->str) + (allFile->numOfElements - 1) ) = '\0';
 }
 
 void readPointersOfLines(File * allFile)
@@ -43,7 +50,7 @@ void readPointersOfLines(File * allFile)
     int readedLines = 1;
 
     for (int currentFilePos = 0; currentFilePos < allFile->numOfElements; currentFilePos++) {
-        if ( *(allFile->str + currentFilePos) == '\0' ) {
+        if ( *(allFile->str + currentFilePos) == '\n' ) {
             *(allFile->pointers + readedLines) = allFile->str + currentFilePos + 1;
             readedLines += 1;
 
@@ -51,6 +58,11 @@ void readPointersOfLines(File * allFile)
                 currentFilePos = allFile->numOfElements;
             }
         }
+    }
+
+    if ( *( (allFile->str) + (allFile->numOfElements - 2) ) == '\n' )
+    {
+        allFile->numOfLines -= 1;
     }
 }
 

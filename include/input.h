@@ -11,6 +11,8 @@ typedef struct
 
 File readFile( FILE * inputFile );
 
+void prepareFile( File * inputFile );
+
 void divisionLines(File * allFile);
 
 void readPointersOfLines(File * allFile);

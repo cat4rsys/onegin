@@ -2,6 +2,16 @@
 #include "utilities.h"
 #include "input.h"
 
+int readSizeOfFile( FILE * file )
+{
+    fseek(file, 0L, SEEK_END);
+    int sizeOfFile = ftell(file) + 1;
+
+    fseek(file, 0L, SEEK_SET);
+
+    return sizeOfFile;
+}
+
 int compareLines( const char * firstLine, const char * secondLine )
 {
     int currentSymbol = 0;
