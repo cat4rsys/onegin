@@ -8,8 +8,8 @@ int compareLinesFromAToZ( const void * firstPtr, const void * secondPtr );
 
 int compareLinesFromZToA( const void * firstPtr, const void * secondPtr );
 
-void changeLines( int numOfFirstLine, int numOfSecondLine, size_t sizeOfElem, char ** pointer );
+void changePointers( size_t numOfFirstLine, size_t numOfSecondLine, void ** pointer );
 
-void universalBubbleSort( void ** data, size_t sizeOfData, size_t sizeOfElem, compare_funcptr comparing );
+void universalBubbleSort( void ** data, size_t sizeOfData, compare_funcptr comparing );
 
 #endif // SORT_H
