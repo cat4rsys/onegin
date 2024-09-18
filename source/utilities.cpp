@@ -18,7 +18,20 @@ void printText( char ** data, size_t numOfLines, FILE * outputFile )
 
     for (size_t numOfReadedLines = 0; numOfReadedLines < numOfLines; numOfReadedLines++) {
         fputs(data[numOfReadedLines], outputFile);
+        fputc('\r', outputFile);
         fputc('\n', outputFile);
+    }
+
+    fclose(outputFile);
+}
+
+void printAllText( char * text, size_t numOfElements, FILE * outputFile )
+{
+    CASSERT(outputFile);
+
+    for (size_t numOfReadedSymbols = 0; numOfReadedSymbols < numOfElements; numOfReadedSymbols++) {
+        (text[numOfReadedSymbols] != '\0') ? ( fputc(text[numOfReadedSymbols], outputFile) ) :
+                                             ( fputc('\r', outputFile) ) ;
     }
 
     fclose(outputFile);

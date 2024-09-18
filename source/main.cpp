@@ -15,5 +15,7 @@ int main()
     universalBubbleSort( (void **) text.pointers, (size_t) text.numOfLines, compareLinesFromZToA);
     printText( text.pointers, (size_t) text.numOfLines, fopen("files/Reverse_Sorted_Onegin.txt", "w") );
 
+    printAllText( text.str, (size_t) text.numOfElements, fopen("files/Original_Onegin.txt", "w") );
+
     return 0;
 }

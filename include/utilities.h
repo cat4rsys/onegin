@@ -16,4 +16,6 @@ int readSizeOfFile( FILE * file );
 
 void printText( char ** data, size_t numOfLines, FILE * outputFile );
 
+void printAllText( char * text, size_t numOfElements, FILE * outputFile );
+
 #endif // UTILITIES_H
