@@ -3,10 +3,16 @@
 
 typedef struct
 {
+    char * pointerOfBeginning;
+    size_t lenghtOfLine;
+} InfoAboutLine;
+
+typedef struct
+{
     char * str;
     int numOfElements;
     int numOfLines;
-    char ** pointers;
+    InfoAboutLine ** arrayOfInfoAboutLines;
 } File;
 
 File readFile( FILE * inputFile );

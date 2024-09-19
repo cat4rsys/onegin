@@ -12,12 +12,12 @@ int readSizeOfFile( FILE * file )
     return sizeOfFile;
 }
 
-void printText( char ** data, size_t numOfLines, FILE * outputFile )
+void printText( InfoAboutLine ** arrayOfLines, size_t numOfLines, FILE * outputFile )
 {
     CASSERT(outputFile);
 
     for (size_t numOfReadedLines = 0; numOfReadedLines < numOfLines; numOfReadedLines++) {
-        fputs(data[numOfReadedLines], outputFile);
+        fputs((*(arrayOfLines[numOfReadedLines])).pointerOfBeginning, outputFile);
         fputc('\r', outputFile);
         fputc('\n', outputFile);
     }

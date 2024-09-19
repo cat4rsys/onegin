@@ -45,13 +45,22 @@ void divisionLines(File * allFile)
 
 void readPointersOfLines(File * allFile)
 {
-    allFile->pointers = (char **)calloc(allFile->numOfLines, sizeof(char *));
-    *(allFile->pointers) = allFile->str;
+    allFile->arrayOfInfoAboutLines = (InfoAboutLine ** )calloc(allFile->numOfLines, sizeof(InfoAboutLine *));
+    InfoAboutLine * arrayOfLines = (InfoAboutLine * )calloc(allFile->numOfLines, sizeof(InfoAboutLine));
+
+    *(arrayOfLines) = {allFile->str, 0};
+    *(allFile->arrayOfInfoAboutLines) = arrayOfLines;
     int readedLines = 1;
 
     for (int currentFilePos = 0; currentFilePos < allFile->numOfElements; currentFilePos++) {
         if ( *(allFile->str + currentFilePos) == '\n' ) {
-            *(allFile->pointers + readedLines) = allFile->str + currentFilePos + 1;
+            arrayOfLines[readedLines].pointerOfBeginning = allFile->str + currentFilePos + 1;
+            allFile->arrayOfInfoAboutLines[readedLines] = &(arrayOfLines[readedLines]);
+
+            arrayOfLines[readedLines - 1].lenghtOfLine = (size_t) ( arrayOfLines[readedLines].pointerOfBeginning -
+                                                                    arrayOfLines[readedLines - 1].pointerOfBeginning - 2 );
+
+            //printf("%s = %ld\n", allFile->arrayOfLines[readedLines- 1].pointerOfBeginning, allFile->arrayOfLines[readedLines - 1].lenghtOfLine);
             readedLines += 1;
 
             if (readedLines == allFile->numOfLines) {
@@ -64,6 +73,11 @@ void readPointersOfLines(File * allFile)
     {
         allFile->numOfLines -= 1;
     }
+    /*else
+    {
+        arrayOfLines[readedLines - 1].lenghtOfLine = numOfElements -
+                                                              (size_t)arrayOfLines[readedLines - 1].pointerOfBeginning;
+    }*/
 }
 
 

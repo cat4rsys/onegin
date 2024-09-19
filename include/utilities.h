@@ -14,7 +14,7 @@ typedef int (* compare_funcptr)(const void * firstElem, const void * secondElem)
 
 int readSizeOfFile( FILE * file );
 
-void printText( char ** data, size_t numOfLines, FILE * outputFile );
+void printText( InfoAboutLine ** arrayOfLines, size_t numOfLines, FILE * outputFile );
 
 void printAllText( char * text, size_t numOfElements, FILE * outputFile );
 
