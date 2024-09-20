@@ -6,9 +6,15 @@ typedef int (* compare_funcptr)(const void * firstElem, const void * secondElem)
 
 int compareLinesFromAToZ( const void * firstPtr, const void * secondPtr );
 
+int clearCompareLinesFromAToZ( const void * firstPtr, const void * secondPtr );
+
 int compareLinesFromZToA( const void * firstPtr, const void * secondPtr );
 
+int clearCompareLinesFromZToA( const void * firstPtr, const void * secondPtr );
+
 int compareLinesFromBack( const void * firstPtr, const void * secondPtr );
+
+int clearCompareLinesFromBack( const void * firstPtr, const void * secondPtr );
 
 void changePointers( size_t numOfFirstLine, size_t numOfSecondLine, void ** pointer );
 

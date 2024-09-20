@@ -1,7 +1,5 @@
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <cassert>
 #include <input.h>
 #include <utilities.h>
 
@@ -68,14 +66,12 @@ void readPointersOfLines(File * allFile)
         }
     }
 
-    if ( *( (allFile->str) + (allFile->numOfElements - 2) ) == '\n' )
-    {
+    if ( *( (allFile->str) + (allFile->numOfElements - 2) ) == '\n' ) {
         allFile->numOfLines -= 1;
     }
-    else
-    {
-        arrayOfLines[readedLines - 1].lenghtOfLine =  arrayOfLines[0].pointerOfBeginning + allFile->numOfElements - arrayOfLines[readedLines - 1].pointerOfBeginning - 1;
-        printf("%ld\n", arrayOfLines[0].lenghtOfLine);
+    else {
+        arrayOfLines[readedLines - 1].lenghtOfLine = arrayOfLines[0].pointerOfBeginning + allFile->numOfElements -
+                                                     arrayOfLines[readedLines - 1].pointerOfBeginning - 1;
     }
 }
 

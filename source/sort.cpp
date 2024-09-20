@@ -1,5 +1,6 @@
 #include "sort.h"
 #include "input.h"
+#include "ctype.h"
 #include "utilities.h"
 
 int compareLinesFromAToZ( const void * firstPtr, const void * secondPtr )
@@ -13,6 +14,35 @@ int compareLinesFromAToZ( const void * firstPtr, const void * secondPtr )
     return firstLine[currentSymbol] - secondLine[currentSymbol];
 }
 
+int clearCompareLinesFromAToZ( const void * firstPtr, const void * secondPtr )
+{
+    const char * firstLine  = (*(*( (InfoAboutLine * const *) firstPtr  ))).pointerOfBeginning;
+    const char * secondLine = (*(*( (InfoAboutLine * const *) secondPtr ))).pointerOfBeginning;
+
+    int currentSymbolFromFirstLine  = 0;
+    int currentSymbolFromSecondLine = 0;
+
+    while ( firstLine[currentSymbolFromFirstLine] != '\0' && secondLine[currentSymbolFromSecondLine] != '\0' ) {
+        if ( !isalnum( firstLine[currentSymbolFromFirstLine] ) ) {
+            currentSymbolFromFirstLine++;
+            continue;
+        }
+        else if ( !isalnum( secondLine[currentSymbolFromSecondLine] ) ) {
+            currentSymbolFromSecondLine++;
+            continue;
+        }
+        else {
+            if ( firstLine[currentSymbolFromFirstLine] != secondLine[currentSymbolFromSecondLine] ) {
+                break;
+            }
+            currentSymbolFromFirstLine++;
+            currentSymbolFromSecondLine++;
+        }
+    }
+
+    return firstLine[currentSymbolFromFirstLine] - secondLine[currentSymbolFromSecondLine];
+}
+
 int compareLinesFromZToA( const void * firstPtr, const void * secondPtr )
 {
     const char * firstLine  = (*(*( (InfoAboutLine * const *) firstPtr ))).pointerOfBeginning;
@@ -22,6 +52,35 @@ int compareLinesFromZToA( const void * firstPtr, const void * secondPtr )
     for( ; firstLine[currentSymbol] == secondLine[currentSymbol] && firstLine[currentSymbol] != '\0'; currentSymbol++ );
 
     return secondLine[currentSymbol] - firstLine[currentSymbol];
+}
+
+int clearCompareLinesFromZToA( const void * firstPtr, const void * secondPtr )
+{
+    const char * firstLine  = (*(*( (InfoAboutLine * const *) firstPtr  ))).pointerOfBeginning;
+    const char * secondLine = (*(*( (InfoAboutLine * const *) secondPtr ))).pointerOfBeginning;
+
+    int currentSymbolFromFirstLine  = 0;
+    int currentSymbolFromSecondLine = 0;
+
+    while ( firstLine[currentSymbolFromFirstLine] != '\0' && secondLine[currentSymbolFromSecondLine] != '\0' ) {
+        if ( !isalnum( firstLine[currentSymbolFromFirstLine] ) ) {
+            currentSymbolFromFirstLine++;
+            continue;
+        }
+        else if ( !isalnum( secondLine[currentSymbolFromSecondLine] ) ) {
+            currentSymbolFromSecondLine++;
+            continue;
+        }
+        else {
+            if ( firstLine[currentSymbolFromFirstLine] != secondLine[currentSymbolFromSecondLine] ) {
+                break;
+            }
+            currentSymbolFromFirstLine++;
+            currentSymbolFromSecondLine++;
+        }
+    }
+
+    return - firstLine[currentSymbolFromFirstLine] + secondLine[currentSymbolFromSecondLine];
 }
 
 int compareLinesFromBack( const void * firstPtr, const void * secondPtr )
@@ -40,6 +99,44 @@ int compareLinesFromBack( const void * firstPtr, const void * secondPtr )
            currentSymbol++ );
 
     return firstLine[lenghtOfFirstLine - currentSymbol] - secondLine[lenghtOfSecondLine - currentSymbol];
+}
+
+int clearCompareLinesFromBack( const void * firstPtr, const void * secondPtr )
+{
+    const char * firstLine          = (*(*( (InfoAboutLine * const *) firstPtr  ))).pointerOfBeginning;
+    const size_t lenghtOfFirstLine  = (*(*( (InfoAboutLine * const *) firstPtr  ))).lenghtOfLine;
+
+    const char * secondLine         = (*(*( (InfoAboutLine * const *) secondPtr ))).pointerOfBeginning;
+    const size_t lenghtOfSecondLine = (*(*( (InfoAboutLine * const *) secondPtr ))).lenghtOfLine;
+
+    size_t currentSymbolFromFirstLine  = 1;
+    size_t currentSymbolFromSecondLine = 1;
+
+    /*for( ; firstLine[lenghtOfFirstLine - currentSymbol] == secondLine[lenghtOfSecondLine - currentSymbol] &&
+           firstLine[lenghtOfFirstLine - currentSymbol] != '\0'                                           &&
+           lenghtOfFirstLine >= currentSymbol                                                             &&
+           lenghtOfSecondLine >= currentSymbol;
+           currentSymbol++ );*/
+
+    while ( firstLine[lenghtOfFirstLine - currentSymbolFromFirstLine] != '\0' && secondLine[lenghtOfSecondLine - currentSymbolFromSecondLine] != '\0' ) {
+        if ( !isalnum( firstLine[lenghtOfFirstLine - currentSymbolFromFirstLine] ) ) {
+            currentSymbolFromFirstLine++;
+            continue;
+        }
+        else if ( !isalnum( secondLine[lenghtOfSecondLine - currentSymbolFromSecondLine] ) ) {
+            currentSymbolFromSecondLine++;
+            continue;
+        }
+        else {
+            if ( firstLine[lenghtOfFirstLine - currentSymbolFromFirstLine] != secondLine[lenghtOfSecondLine - currentSymbolFromSecondLine] ) {
+                break;
+            }
+            currentSymbolFromFirstLine++;
+            currentSymbolFromSecondLine++;
+        }
+    }
+
+    return firstLine[lenghtOfFirstLine - currentSymbolFromFirstLine] - secondLine[lenghtOfSecondLine - currentSymbolFromSecondLine];
 }
 
 void changePointers( size_t numOfFirstElem, size_t numOfSecondElem, void ** pointer )
