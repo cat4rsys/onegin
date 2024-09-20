@@ -60,3 +60,53 @@ void universalBubbleSort( void ** data, size_t sizeOfData, compare_funcptr compa
         }
     }
 }
+
+void quickSort( void ** data, size_t low, size_t high, compare_funcptr comparing )
+{
+    if ( (high - low) < 1 ) {
+        return;
+    }
+    else {
+        size_t newLine = distribution( data, low, high, (high+low)/2, comparing);
+
+        quickSort( data, low,     newLine-1, comparing );
+        quickSort( data, newLine, high,    comparing );
+    }
+}
+
+size_t distribution( void ** data, size_t low, size_t high, size_t pivot, compare_funcptr comparing)
+{
+    int part = -1;
+    void * copyOfPivot = *(data + pivot);
+    if ( (high - low) == 1) {
+        if ( comparing( (data + high), (data + low) ) < 0) {
+            changePointers( low, high, data);
+        }
+        return high;
+    }
+    while ( low < high ) {
+        switch ( part ) {
+            case -1:
+                if ( comparing( &copyOfPivot, (data + low) ) <= 0) {
+                    part = 1;
+                }
+                else {
+                    low += 1;
+                }
+                break;
+            case 1:
+                if ( comparing( (data + high), &copyOfPivot ) <= 0) {
+                    changePointers( low, high, data);
+                    low  += 1;
+                    part = -1;
+                }
+                else {
+                    high -= 1;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    return low;
+}

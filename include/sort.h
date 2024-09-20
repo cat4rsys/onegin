@@ -14,4 +14,8 @@ void changePointers( size_t numOfFirstLine, size_t numOfSecondLine, void ** poin
 
 void universalBubbleSort( void ** data, size_t sizeOfData, compare_funcptr comparing );
 
+void quickSort( void ** data, size_t low, size_t high, compare_funcptr comparing );
+
+size_t distribution( void ** data, size_t low, size_t high, size_t pivot, compare_funcptr comparing);
+
 #endif // SORT_H

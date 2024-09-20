@@ -9,13 +9,13 @@ int main()
 
     prepareFile(&text);
 
-    universalBubbleSort( (void **) text.arrayOfInfoAboutLines, (size_t) text.numOfLines, compareLinesFromAToZ);
+    quickSort( (void **) text.arrayOfInfoAboutLines, 0, (size_t) text.numOfLines - 1, compareLinesFromAToZ);
     printText( text.arrayOfInfoAboutLines, (size_t) text.numOfLines, fopen("files/Sorted_Onegin.txt", "wb") );
 
-    universalBubbleSort( (void **) text.arrayOfInfoAboutLines, (size_t) text.numOfLines, compareLinesFromZToA);
+    quickSort( (void **) text.arrayOfInfoAboutLines, 0, (size_t) text.numOfLines - 1, compareLinesFromZToA);
     printText( text.arrayOfInfoAboutLines, (size_t) text.numOfLines, fopen("files/Reverse_Sorted_Onegin.txt", "wb") );
 
-    universalBubbleSort( (void **) text.arrayOfInfoAboutLines, (size_t) text.numOfLines, compareLinesFromBack);
+    quickSort( (void **) text.arrayOfInfoAboutLines, 0, (size_t) text.numOfLines - 1, compareLinesFromBack);
     printText( text.arrayOfInfoAboutLines, (size_t) text.numOfLines, fopen("files/Back_Sorted_Onegin.txt", "wb") );
 
     printAllText( text.str, (size_t) text.numOfElements, fopen("files/Original_Onegin.txt", "wb") );
