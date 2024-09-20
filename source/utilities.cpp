@@ -17,7 +17,7 @@ void printText( InfoAboutLine ** arrayOfLines, size_t numOfLines, FILE * outputF
     CASSERT(outputFile);
 
     for (size_t numOfReadedLines = 0; numOfReadedLines < numOfLines; numOfReadedLines++) {
-        fputs((*(arrayOfLines[numOfReadedLines])).pointerOfBeginning, outputFile);
+        fputs( (*(arrayOfLines[numOfReadedLines])).pointerOfBeginning, outputFile );
         fputc('\r', outputFile);
         fputc('\n', outputFile);
     }

@@ -60,7 +60,6 @@ void readPointersOfLines(File * allFile)
             arrayOfLines[readedLines - 1].lenghtOfLine = (size_t) ( arrayOfLines[readedLines].pointerOfBeginning -
                                                                     arrayOfLines[readedLines - 1].pointerOfBeginning - 2 );
 
-            //printf("%s = %ld\n", allFile->arrayOfLines[readedLines- 1].pointerOfBeginning, allFile->arrayOfLines[readedLines - 1].lenghtOfLine);
             readedLines += 1;
 
             if (readedLines == allFile->numOfLines) {
@@ -73,11 +72,11 @@ void readPointersOfLines(File * allFile)
     {
         allFile->numOfLines -= 1;
     }
-    /*else
+    else
     {
-        arrayOfLines[readedLines - 1].lenghtOfLine = numOfElements -
-                                                              (size_t)arrayOfLines[readedLines - 1].pointerOfBeginning;
-    }*/
+        arrayOfLines[readedLines - 1].lenghtOfLine =  arrayOfLines[0].pointerOfBeginning + allFile->numOfElements - arrayOfLines[readedLines - 1].pointerOfBeginning - 1;
+        printf("%ld\n", arrayOfLines[0].lenghtOfLine);
+    }
 }
 
 

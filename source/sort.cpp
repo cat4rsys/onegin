@@ -6,7 +6,6 @@ int compareLinesFromAToZ( const void * firstPtr, const void * secondPtr )
 {
     const char * firstLine  = (*(*( (InfoAboutLine * const *) firstPtr  ))).pointerOfBeginning;
     const char * secondLine = (*(*( (InfoAboutLine * const *) secondPtr ))).pointerOfBeginning;
-    //printf("%s x %s\n", firstLine, secondLine);
 
     int currentSymbol = 0;
     for( ; firstLine[currentSymbol] == secondLine[currentSymbol] && firstLine[currentSymbol] != '\0'; currentSymbol++ );
@@ -29,13 +28,16 @@ int compareLinesFromBack( const void * firstPtr, const void * secondPtr )
 {
     const char * firstLine          = (*(*( (InfoAboutLine * const *) firstPtr  ))).pointerOfBeginning;
     const size_t lenghtOfFirstLine  = (*(*( (InfoAboutLine * const *) firstPtr  ))).lenghtOfLine;
+
     const char * secondLine         = (*(*( (InfoAboutLine * const *) secondPtr ))).pointerOfBeginning;
     const size_t lenghtOfSecondLine = (*(*( (InfoAboutLine * const *) secondPtr ))).lenghtOfLine;
 
     size_t currentSymbol = 1;
     for( ; firstLine[lenghtOfFirstLine - currentSymbol] == secondLine[lenghtOfSecondLine - currentSymbol] &&
-           firstLine[lenghtOfFirstLine - currentSymbol] != '\0' && lenghtOfFirstLine >= currentSymbol     &&
-           lenghtOfSecondLine >= currentSymbol; currentSymbol++ );
+           firstLine[lenghtOfFirstLine - currentSymbol] != '\0'                                           &&
+           lenghtOfFirstLine >= currentSymbol                                                             &&
+           lenghtOfSecondLine >= currentSymbol;
+           currentSymbol++ );
 
     return firstLine[lenghtOfFirstLine - currentSymbol] - secondLine[lenghtOfSecondLine - currentSymbol];
 }
@@ -43,6 +45,7 @@ int compareLinesFromBack( const void * firstPtr, const void * secondPtr )
 void changePointers( size_t numOfFirstElem, size_t numOfSecondElem, void ** pointer )
 {
     void * temp = pointer[numOfFirstElem];
+
     pointer[numOfFirstElem] = pointer[numOfSecondElem];
     pointer[numOfSecondElem] = temp;
 
@@ -78,12 +81,14 @@ size_t distribution( void ** data, size_t low, size_t high, size_t pivot, compar
 {
     int part = -1;
     void * copyOfPivot = *(data + pivot);
+
     if ( (high - low) == 1) {
         if ( comparing( (data + high), (data + low) ) < 0) {
             changePointers( low, high, data);
         }
         return high;
     }
+
     while ( low < high ) {
         switch ( part ) {
             case -1:
